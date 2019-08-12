@@ -1,1 +1,1 @@
-# cse480-project
+#cse480-project : Web Database

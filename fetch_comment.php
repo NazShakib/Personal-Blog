@@ -2,11 +2,17 @@
 
 //fetch_comment.php
 
+session_start();
+
+
+
+$post_id = $_SESSION['postID'];
+
 $connect = new PDO('mysql:host=localhost;dbname=cse480', 'root', '');
 
 $query = "
-SELECT * FROM tbl_comment 
-WHERE parent_comment_id = '0' 
+SELECT * FROM comment 
+WHERE parent_comment_id = '0' and post_id = '$post_id' 
 ORDER BY comment_id DESC
 ";
 
@@ -32,8 +38,9 @@ echo $output;
 
 function get_reply_comment($connect, $parent_id = 0, $marginleft = 0)
 {
+  global $post_id;
  $query = "
- SELECT * FROM tbl_comment WHERE parent_comment_id = '".$parent_id."'
+ SELECT * FROM comment WHERE parent_comment_id = '$parent_id' and post_id = '$post_id';
  ";
  $output = '';
  $statement = $connect->prepare($query);

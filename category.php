@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Colorlib Balita &mdash; Minimal Blog Template</title>
+     <title>Busniess Idea Sharing</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -25,6 +25,7 @@
 
     <?php 
        require "db.php";
+          session_start();
     ?>
 
 
@@ -35,10 +36,22 @@
 
     <?php 
     
-     if (!isset($_GET['category'])) {
-      $category = 'Technology';
+    
+     if (isset($_GET['category'])) {
+          $category = $_GET['category'];
+         $_SESSION['category'] = $_GET['category'];
+   
     } else {
-      $category = $_GET['category'];
+        
+      if(!isset($_SESSION['category']))
+         {
+            $category = 'Technology';
+         }
+         else
+         {
+             $category =$_SESSION['category'];
+         }    
+         
     }
      if (!isset($_GET['page'])) {
       $page = 1;
@@ -47,7 +60,7 @@
     }
     
     $results_per_page = 4;
-    $sql='SELECT * FROM post';
+    $sql="SELECT * FROM post where post_category ='$category'";
     $result = $db->query($sql);
     $number_of_results = mysqli_num_rows($result);
     $number_of_pages = ceil($number_of_results/$results_per_page);
@@ -66,12 +79,12 @@
                 </div>
             </div>
             <div class="row blog-entries">
-               
-               
+
+
                 <div class="col-md-12 col-lg-8 main-content">
-                   <?php foreach ($result as $row): ?>
+                    <?php foreach ($result as $row): ?>
                     <div class="row">
-                       
+
                         <div class="col-md-8 ml-4">
 
                             <div class="post-entry-horzontal">
@@ -90,7 +103,7 @@
                             <!-- END post -->
 
                         </div>
-                         
+
                     </div>
                     <?php endforeach ?>
 
@@ -98,7 +111,7 @@
                         <div class="col-md-12 text-center ml-10">
                             <nav aria-label="Page navigation" class="text-center">
                                 <ul class="pagination">
-                                    <li class="page-item"><a class="page-link" href="category.php?page=<?php echo $page; ?>">Prev</a></li>
+                                    <li class="page-item"><a class="page-link" href="category.php?page=<?php echo $page=1; ?>">Prev</a></li>
 
                                     <li class="page-item">
                                         <?php for ($page=1;$page<=$number_of_pages;$page++) { ?>
@@ -106,7 +119,7 @@
                                         <?php } ?>
                                     </li>
 
-                                    <li class="page-item"><a class="page-link" href="category.php ?page=<?php echo $page; ?>">Next</a></li>
+                                    <li class="page-item"><a class="page-link" href="category.php ?page=<?php echo $page-1; ?>">Next</a></li>
                                 </ul>
                             </nav>
                         </div>

@@ -61,9 +61,28 @@ if(isset($_SESSION['message'])) : ?>
 
     <?php
         $userID = $_SESSION['userID'];
+        $sql ="SELECT COUNT(*) AS totalPost FROM post where userid= '$userID'"; 
+        $act = $db->query($sql);
+        
+        $sql2 = "select * from post where where userid= '$userID'";
+        $act2 = $db->query($sql2);
+        $value = 0;
+        foreach($ac2 as $row)
+        {
+            
+        $sql1 ="SELECT COUNT(*) AS totalComment FROM comment where '$row[post_id]' = '$post'"; 
+        $act1 = $db->query($sql1);
+            
+            
+            foreach($act1 as $row1)
+            {}
+            $value = value+$row1['totalComment'];
+            
+        }
     
-     $sql ="SELECT COUNT(*) AS totalPost FROM post where userid= '$userID'"; 
-     $act = $db->query($sql);
+                   
+                      
+    
     ?>
     <!-- Side Navbar -->
     <nav class="side-navbar">
@@ -129,7 +148,7 @@ if(isset($_SESSION['message'])) : ?>
                         <div class="wrapper count-title d-flex">
                             <div class="icon text-center"><i class="icon-check"></i></div>
                             <div class="name text-center"><strong class="text-uppercase">Total Comment</strong><span>Last 2 months</span>
-                                <div class="count-number text-center">0</div>
+                                <div class="count-number text-center"><?php echo $value?></div>
                             </div>
                         </div>
                     </div>

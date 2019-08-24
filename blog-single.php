@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Colorlib Balita &mdash; Minimal Blog Template</title>
+     <title>Busniess Idea Sharing</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -40,6 +40,7 @@
     }
     $_SESSION['postID'] = $post;
     
+    
     $sql="SELECT * FROM post where post_id ='$post'";
     $result = $db->query($sql); 
     
@@ -76,107 +77,50 @@
                     <div class="pt-5">
                         <p> Tags: <a href="#">#<?php echo $row['post_tag']; ?></a></p>
                     </div>
+                    
+                    
+                    <?php 
+                      $sql ="SELECT COUNT(*) AS totalComment FROM comment where post_id= '$post'"; 
+                      $act = $db->query($sql);
+                    foreach($act as $key){
+                        
+                    }
+                    
+                    ?>
 
-
+                    
                     <div class="pt-5">
 
-                        <h3 class="mb-5">6 Comments</h3>
-
+                        <h3 class="mb-5">Total Comment: <?php
+                                      echo $key['totalComment'];  
+                            ?></h3>
 
 
 
                         <div class="comment-form-wrap pt-5">
                             <h3 class="mb-5">Leave a comment</h3>
-                            <form method="POST" class="p-5 bg-light" id='comment_form'>
+                            <form method="POST" id="comment_form">
                                 <div class="form-group">
-                                    <label for="name">Your Name *</label>
-                                    <input type="text" name="comment_name" id="comment_name" class="form-control" id="name">
+                                    <input type="text" name="comment_name" id="comment_name" class="form-control" placeholder="Enter Name" />
                                 </div>
                                 <div class="form-group">
-                                    <label for="message">Your Comment</label>
-                                    <textarea name="comment_content" id="comment_content" cols="30" rows="10" class="form-control"></textarea>
+                                    <textarea name="comment_content" id="comment_content" class="form-control" placeholder="Enter Comment" rows="5"></textarea>
                                 </div>
                                 <div class="form-group">
                                     <input type="hidden" name="comment_id" id="comment_id" value="0" />
-                                    <input type="submit" name="submit" id="submit" value="Post Comment" class="btn btn-primary">
+                                    <input type="submit" name="submit" id="submit" class="btn btn-info" value="Submit" />
                                 </div>
-
                             </form>
+
+                            <span id="comment_message"></span>
+                            <br />
+                            <div id="display_comment"></div>
                         </div>
-
-
-                        <span id="comment_message"></span>
-                        <br />
-                        <div id="display_comment"></div>
-                        <hr>
-
-
-                        <ul class="comment-list">
-
-                            <li class="comment">
-                                <div class="vcard">
-                                    <img src="images/person_1.jpg" alt="Image placeholder">
-                                </div>
-                                <div class="comment-body">
-                                    <h3>Jean Doe</h3>
-                                    <div class="meta">January 9, 2018 at 2:21pm</div>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
-                                    <p><a href="#" class="reply">Reply</a></p>
-                                </div>
-
-                                <ul class="children">
-                                    <li class="comment">
-                                        <div class="vcard">
-                                            <img src="images/person_1.jpg" alt="Image placeholder">
-                                        </div>
-                                        <div class="comment-body">
-                                            <h3>Jean Doe</h3>
-                                            <div class="meta">January 9, 2018 at 2:21pm</div>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
-                                            <p><a href="#" class="reply">Reply</a></p>
-                                        </div>
-
-
-                                        <ul class="children">
-                                            <li class="comment">
-                                                <div class="vcard">
-                                                    <img src="images/person_1.jpg" alt="Image placeholder">
-                                                </div>
-                                                <div class="comment-body">
-                                                    <h3>Jean Doe</h3>
-                                                    <div class="meta">January 9, 2018 at 2:21pm</div>
-                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
-                                                    <p><a href="#" class="reply">Reply</a></p>
-                                                </div>
-
-                                                <ul class="children">
-                                                    <li class="comment">
-                                                        <div class="vcard">
-                                                            <img src="images/person_1.jpg" alt="Image placeholder">
-                                                        </div>
-                                                        <div class="comment-body">
-                                                            <h3>Jean Doe</h3>
-                                                            <div class="meta">January 9, 2018 at 2:21pm</div>
-                                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
-                                                            <p><a href="#" class="reply">Reply</a></p>
-                                                        </div>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </li>
-
-                        </ul>
-                        <!-- END comment-list -->
-
 
                     </div>
 
                 </div>
 
-                <!-- END main-content -->
 
                 <?php 
             
@@ -196,6 +140,16 @@
                             <ul>
 
                                 <?php foreach ($result as $row): ?>
+                                
+                                   <?php
+                                    $post = $row['post_id'];
+                                    $sql ="SELECT COUNT(*) AS totalComment FROM comment where post_id= '$post'"; 
+                                    $act = $db->query($sql);
+                                    foreach($act as $key){
+                        
+                                            }
+                    
+                                    ?>
 
                                 <li>
                                     <a href="blog-single.php ?post=<?php echo $row['post_id']; ?>">
@@ -204,7 +158,9 @@
                                             <h4><?php echo $row['post_title']; ?></h4>
                                             <div class="post-meta">
                                                 <span class="mr-2"><?php echo $row['post_time']; ?> </span> &bullet;
-                                                <span class="ml-2"><span class="fa fa-comments"></span> 3</span>
+                                                <span class="ml-2"><span class="fa fa-comments"></span> <?php
+                                      echo $key['totalComment'];  
+                            ?></span>
                                             </div>
                                         </div>
                                     </a>
@@ -213,7 +169,8 @@
                             </ul>
                         </div>
                     </div>
-                    <!-- END sidebar-box -->
+                    
+                    
 
                     <div class="sidebar-box">
                         <h3 class="heading">Categories</h3>
@@ -253,6 +210,12 @@
 
 
     <?php include "footer.php" ?>
+    
+     <?php 
+       
+       unset($_SESSION['category']);
+       
+    ?>
 
     <script src="js/jquery-3.2.1.min.js"></script>
     <script src="js/jquery-migrate-3.0.0.js"></script>
@@ -266,52 +229,54 @@
 
     <script src="js/main.js"></script>
 
-
-
+    
+    
     <script>
-        $(document).ready(function() {
+$(document).ready(function(){
+ 
+ $('#comment_form').on('submit', function(event){
+  event.preventDefault();
+  var form_data = $(this).serialize();
+  $.ajax({
+   url:"add_comment.php",
+   method:"POST",
+   data:form_data,
+   dataType:"JSON",
+   success:function(data)
+   {
+    if(data.error != '')
+    {
+     $('#comment_form')[0].reset();
+     $('#comment_message').html(data.error);
+     $('#comment_id').val('0');
+     load_comment();
+    }
+   }
+  })
+ });
 
-            $('#comment_form').on('submit', function(event) {
-                event.preventDefault();
-                var form_data = $(this).serialize();
-                $.ajax({
-                    url: "add_comment.php",
-                    method: "POST",
-                    data: form_data,
-                    dataType: "JSON",
-                    success: function(data) {
-                        if (data.error != '') {
-                            $('#comment_form')[0].reset();
-                            $('#comment_message').html(data.error);
-                            $('#comment_id').val('0');
-                            load_comment();
-                        }
-                    }
-                })
-            });
+ load_comment();
 
-            load_comment();
+ function load_comment()
+ {
+  $.ajax({
+   url:"fetch_comment.php",
+   method:"POST",
+   success:function(data)
+   {
+    $('#display_comment').html(data);
+   }
+  })
+ }
 
-            function load_comment() {
-                $.ajax({
-                    url: "fetch_comment.php",
-                    method: "POST",
-                    success: function(data) {
-                        $('#display_comment').html(data);
-                    }
-                })
-            }
-
-            $(document).on('click', '.reply', function() {
-                var comment_id = $(this).attr("id");
-                $('#comment_id').val(comment_id);
-                $('#comment_name').focus();
-            });
-
-        });
-
-    </script>
-
-
-
-    < /body> < /html>
+ $(document).on('click', '.reply', function(){
+  var comment_id = $(this).attr("id");
+  $('#comment_id').val(comment_id);
+  $('#comment_name').focus();
+ });
+ 
+});
+</script>
+   
+    
+    

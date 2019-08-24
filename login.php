@@ -71,6 +71,12 @@ if(isset($_SESSION['message'])) : ?>
     </div>
 
 
+      <?php 
+       
+       unset($_SESSION['category']);
+       
+    ?>
+    
 
     <script src="js/jquery-3.2.1.min.js"></script>
     <script src="js/jquery-migrate-3.0.0.js"></script>

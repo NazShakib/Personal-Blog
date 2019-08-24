@@ -1,6 +1,7 @@
 <html>
 
 <head>
+    <title>Busniess Idea Sharing</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -50,11 +51,7 @@
             </div>
         </div>
         
-        <?php
-        
-        
-        
-        ?>
+      
 
         <nav class="navbar navbar-expand-md  navbar-light bg-light">
             <div class="container">

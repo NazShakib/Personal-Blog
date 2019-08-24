@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Colorlib Balita &mdash; Minimal Blog Template</title>
+    <title>Busniess Idea Sharing</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -55,13 +55,30 @@
 
                     <div class="owl-carousel owl-theme home-slider">
                         <?php foreach ($result as $row): ?>
+                        
+                           <?php 
+                        
+                           $post = $row['post_id'];
+                      $sql ="SELECT COUNT(*) AS totalComment FROM comment where post_id= '$post'"; 
+                      $act = $db->query($sql);
+                    foreach($act as $key){
+                        
+                    }
+                    
+                    ?>
+                        
+                        
                         <div>
                             <a href="blog-single.php?post=<?php echo $row['post_id']; ?>" class="a-block d-flex align-items-center height-lg" style="background-image: url('images/post/<?php echo $row['post_image']; ?>'); ">
                                 <div class="text half-to-full">
                                     <div class="post-meta">
                                         <span class="category"><?php echo $row['post_category']; ?></span>
                                         <span class="mr-2"><?php echo $row['post_time'];?></span> &bullet;
-                                        <span class="ml-2"><span class="fa fa-comments"></span> 3</span>
+                                        <span class="ml-2"><span class="fa fa-comments"></span>
+                                        <?php
+                                      echo $key['totalComment'];  
+                            ?>
+                                          </span>
                                     </div>
                                     <h3><?php echo $row['post_title']; ?></h3>
                                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem nobis, ut dicta eaque ipsa laudantium!</p>
@@ -95,13 +112,25 @@
                     <h2 class="mb-4 text-center">LATEST POSTS</h2>
                 </div>
                 <?php foreach ($result as $row): ?>
+                
+                  <?php 
+                     $post = $row['post_id'];
+                      $sql ="SELECT COUNT(*) AS totalComment FROM comment where post_id= '$post'"; 
+                      $act = $db->query($sql);
+                    foreach($act as $key){
+                        
+                    }
+                    
+                    ?>
                 <div class="col-md-6 col-lg-4">
                     <a href="blog-single.php?post=<?php echo $row['post_id']; ?>" class="a-block d-flex align-items-center height-md" style="background-image: url('images/post/<?php echo $row['post_image']; ?>'); ">
                         <div class="text">
                             <div class="post-meta">
                                 <span class="category"><?php echo $row['post_category']; ?></span>
                                 <span class="mr-2"><?php echo $row['post_time'];?></span> &bullet;
-                                <span class="ml-2"><span class="fa fa-comments"></span> 3</span>
+                                <span class="ml-2"><span class="fa fa-comments"></span> <?php
+                                      echo $key['totalComment'];  
+                            ?></span>
                             </div>
                             <h3><?php echo $row['post_title']; ?></h3>
                         </div>
@@ -145,6 +174,18 @@
                 <div class="col-md-12 col-lg-12 main-content">
                     <div class="row">
                         <?php foreach ($result as $row): ?>
+                        
+                        <?php
+                      $post = $row['post_id'];
+                      $sql ="SELECT COUNT(*) AS totalComment FROM comment where post_id= '$post'"; 
+                      $act = $db->query($sql);
+                    foreach($act as $key){
+                        
+                    }
+                    
+                    ?>
+                          
+                        
                         <div class="col-md-4">
                             <a href="blog-single.php?post=<?php echo $row['post_id']; ?>" class="blog-entry element-animate" data-animate-effect="fadeIn">
                                 <img src="images/post/<?php echo $row['post_image']; ?>" alt="Image placeholder">
@@ -152,7 +193,9 @@
                                     <div class="post-meta">
                                         <span class="category"><?php echo $row['post_category']; ?></span>
                                         <span class="mr-2"><?php echo $row['post_time'];?></span> &bullet;
-                                        <span class="ml-2"><span class="fa fa-comments"></span> 3</span>
+                                        <span class="ml-2"><span class="fa fa-comments"></span> <?php
+                                      echo $key['totalComment'];  
+                            ?></span>
                                     </div>
                                     <h2><?php echo $row['post_title']; ?></h2>
                                 </div>
@@ -190,6 +233,8 @@
     </section>
 
     <?php include "footer.php" ?>
+
+    
 </body>
 
 </html>

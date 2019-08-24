@@ -1,13 +1,17 @@
 <?php
 
-//add_comment.php
 session_start();
-$connect = new PDO('mysql:host=localhost;dbname=cse480', 'root', '');
 
+
+$connect = new PDO('mysql:host=localhost;dbname=cse480', 'root', '');
 
 $error = '';
 $comment_name = '';
 $comment_content = '';
+$post_id ='';
+
+$id = $_SESSION['postID'];
+
 
 if(empty($_POST["comment_name"]))
 {
@@ -27,8 +31,6 @@ else
  $comment_content = $_POST["comment_content"];
 }
 
-$post_id = $_SESSION['postID'];
-
 if($error == '')
 {
  $query = "
@@ -42,8 +44,7 @@ if($error == '')
    ':parent_comment_id' => $_POST["comment_id"],
    ':comment'    => $comment_content,
    ':comment_sender_name' => $comment_name,
-   'post_id' =>$post_id
-   
+   ':post_id' => $id
   )
  );
  $error = '<label class="text-success">Comment Added</label>';

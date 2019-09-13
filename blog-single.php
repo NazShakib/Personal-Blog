@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-     <title>Busniess Idea Sharing</title>
+    <title>Busniess Idea Sharing</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -77,8 +77,8 @@
                     <div class="pt-5">
                         <p> Tags: <a href="#">#<?php echo $row['post_tag']; ?></a></p>
                     </div>
-                    
-                    
+
+
                     <?php 
                       $sql ="SELECT COUNT(*) AS totalComment FROM comment where post_id= '$post'"; 
                       $act = $db->query($sql);
@@ -88,7 +88,7 @@
                     
                     ?>
 
-                    
+
                     <div class="pt-5">
 
                         <h3 class="mb-5">Total Comment: <?php
@@ -140,8 +140,8 @@
                             <ul>
 
                                 <?php foreach ($result as $row): ?>
-                                
-                                   <?php
+
+                                <?php
                                     $post = $row['post_id'];
                                     $sql ="SELECT COUNT(*) AS totalComment FROM comment where post_id= '$post'"; 
                                     $act = $db->query($sql);
@@ -169,8 +169,8 @@
                             </ul>
                         </div>
                     </div>
-                    
-                    
+
+
 
                     <div class="sidebar-box">
                         <h3 class="heading">Categories</h3>
@@ -210,8 +210,8 @@
 
 
     <?php include "footer.php" ?>
-    
-     <?php 
+
+    <?php 
        
        unset($_SESSION['category']);
        
@@ -229,54 +229,48 @@
 
     <script src="js/main.js"></script>
 
-    
-    
+
+
     <script>
-$(document).ready(function(){
- 
- $('#comment_form').on('submit', function(event){
-  event.preventDefault();
-  var form_data = $(this).serialize();
-  $.ajax({
-   url:"add_comment.php",
-   method:"POST",
-   data:form_data,
-   dataType:"JSON",
-   success:function(data)
-   {
-    if(data.error != '')
-    {
-     $('#comment_form')[0].reset();
-     $('#comment_message').html(data.error);
-     $('#comment_id').val('0');
-     load_comment();
-    }
-   }
-  })
- });
+        $(document).ready(function() {
 
- load_comment();
+            $('#comment_form').on('submit', function(event) {
+                event.preventDefault();
+                var form_data = $(this).serialize();
+                $.ajax({
+                    url: "add_comment.php",
+                    method: "POST",
+                    data: form_data,
+                    dataType: "JSON",
+                    success: function(data) {
+                        if (data.error != '') {
+                            $('#comment_form')[0].reset();
+                            $('#comment_message').html(data.error);
+                            $('#comment_id').val('0');
+                            load_comment();
+                        }
+                    }
+                })
+            });
 
- function load_comment()
- {
-  $.ajax({
-   url:"fetch_comment.php",
-   method:"POST",
-   success:function(data)
-   {
-    $('#display_comment').html(data);
-   }
-  })
- }
+            load_comment();
 
- $(document).on('click', '.reply', function(){
-  var comment_id = $(this).attr("id");
-  $('#comment_id').val(comment_id);
-  $('#comment_name').focus();
- });
- 
-});
-</script>
-   
-    
-    
+            function load_comment() {
+                $.ajax({
+                    url: "fetch_comment.php",
+                    method: "POST",
+                    success: function(data) {
+                        $('#display_comment').html(data);
+                    }
+                })
+            }
+
+            $(document).on('click', '.reply', function() {
+                var comment_id = $(this).attr("id");
+                $('#comment_id').val(comment_id);
+                $('#comment_name').focus();
+            });
+
+        });
+
+    </script>
